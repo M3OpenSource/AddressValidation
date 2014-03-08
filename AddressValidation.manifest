@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Manifest>
+  <Name>AddressValidation</Name>
+  <Author>Thibaud Lopez Schneider</Author>
+  <Description>Address Validation</Description>
+  <Version>1.0.0</Version>
+  <Files>
+    <File Path="AddressValidation.xaml" MimeType="application/xaml+xml" VisibleName="Address Validation" MainClass="False" SingleInstance="True" />
+  </Files>
+</Manifest>

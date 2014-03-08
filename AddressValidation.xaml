@@ -1,0 +1,93 @@
+﻿<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ui="clr-namespace:Mango.UI.Controls;assembly=Mango.UI" xmlns:mashup="clr-namespace:Mango.UI.Services.Mashup;assembly=Mango.UI">
+<!--
+	PENDING
+	- Add a WebBrowser control with Google Maps
+	- Connect the DataGrid to the WebBrowser with SelectionChanged event
+	- Add clickable column to open Google Maps in the system browser
+	- Add Hyperlink to the Google Geocoding API
+-->
+	<Grid.RowDefinitions>
+		<RowDefinition Height="Auto" />
+		<RowDefinition Height="1*" />
+		<RowDefinition Height="Auto" />
+	</Grid.RowDefinitions>
+	<Grid.ColumnDefinitions>
+		<ColumnDefinition Width="1*" />
+	</Grid.ColumnDefinitions>
+	<StackPanel Orientation="Horizontal" Grid.Row="0">
+		<Label Content="Address" />
+		<TextBox Name="txtAddress" Width="400" Margin="5" />
+		<Button Content="Search" IsDefault="True" Style="{DynamicResource styleButtonPrimaryMashup}" Name="btnSearch" />
+	</StackPanel>
+	<mashup:DataListPanel Name="AddressList" Grid.Row="1">
+		<mashup:DataListPanel.Events>
+			<mashup:Events>
+				<mashup:Event SourceName="btnSearch" SourceEventName="Click" TargetEventName="List">
+					<mashup:Parameter TargetKey="address" Value="{Binding ElementName=txtAddress, Path=Text}" />
+				</mashup:Event>
+			</mashup:Events>
+		</mashup:DataListPanel.Events>
+		<mashup:DataListPanel.DataService>
+			<mashup:DataService Type="REST">
+				<mashup:DataService.Operations>
+					<mashup:DataOperation Name="List">
+						<mashup:DataParameter Key="REST.BaseAddress" Value="https://maps.googleapis.com/maps/api/geocode/xml?address={address}&amp;sensor=false" />
+						<mashup:DataParameter Key="REST.RemoveNamespace" Value="True" />
+						<mashup:DataParameter Key="REST.XPath" Value="GeocodeResponse/result" />
+					</mashup:DataOperation>
+				</mashup:DataService.Operations>
+			</mashup:DataService>
+		</mashup:DataListPanel.DataService>
+		<DataGrid ItemsSource="{Binding Items}" Style="{DynamicResource styleDataGrid}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+			<DataGrid.Columns>
+				<!-- United States layout -->
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'street_number\']/short_name}" Width="Auto" Header="Street number" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'route\']/short_name}" Width="Auto" Header="Route" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'subpremise\']/short_name}" Width="Auto" Header="Subpremise" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'locality\']/long_name}" Width="Auto" Header="City" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'administrative_area_level_1\']/short_name}" Width="Auto" Header="State" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'postal_code\']/short_name}" Width="Auto" Header="PostalCode" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'country\']/short_name}" Width="Auto" Header="Country" />
+				
+				<!-- France -->
+				<!--
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'street_number\']/short_name}" Width="Auto" Header="Numéro" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'route\']/short_name}" Width="Auto" Header="Rue" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'locality\']/long_name}" Width="Auto" Header="Ville" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'postal_code\']/short_name}" Width="Auto" Header="Code postal" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'country\']/short_name}" Width="Auto" Header="Pays" />
+				-->
+				
+				<!-- Sweden -->
+				<!--
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'route\']/short_name}" Width="Auto" Header="Gata" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'street_number\']/short_name}" Width="Auto" Header="Nummer" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'administrative_area_level_2\']/short_name}" Width="Auto" Header="Stad" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'postal_code\']/short_name}" Width="Auto" Header="Postnummer" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[type\=\'country\']/short_name}" Width="Auto" Header="Land" />
+				-->
+				
+				<!-- All fields -->
+				<!--
+				<DataGridTextColumn Binding="{Binding XPath=type}" Width="Auto" />
+				<DataGridTextColumn Binding="{Binding XPath=formatted_address}" Width="Auto" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[0]/long_name}" Width="Auto" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[1]/long_name}" Width="Auto" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[2]/long_name}" Width="Auto" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[3]/long_name}" Width="Auto" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[4]/long_name}" Width="Auto" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[5]/long_name}" Width="Auto" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[6]/long_name}" Width="Auto" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[7]/long_name}" Width="Auto" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[8]/long_name}" Width="Auto" />
+				<DataGridTextColumn Binding="{Binding XPath=address_component[9]/long_name}" Width="Auto" />
+				<DataGridTextColumn Binding="{Binding XPath=geometry}" Width="Auto" />
+				-->
+			</DataGrid.Columns>
+		</DataGrid>
+	</mashup:DataListPanel>
+	<StackPanel Orientation="Horizontal" Grid.Row="2">
+		<Button Content="Select" Name="btnSelect" Margin="5" />
+		<Label Content="Source: Google Geocoding API" />
+	</StackPanel>
+</Grid>
