@@ -11,7 +11,7 @@ package MForms.JScript {
 		public function Init(element: Object, args: Object, controller : Object, debug : Object) {
 			// prepare the XML
 			var doc: XDocument = new XDocument(
-				new XElement("AddressValidateRequest", new XAttribute("USERID", "123USER1234"),
+				new XElement("AddressValidateRequest", new XAttribute("USERID", "************"),
 					new XElement("Address",
 						new XElement("FirmName", "Ciber"),
 						new XElement("Address1", "6363 South Fiddlers Green"),
