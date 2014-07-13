@@ -42,7 +42,5 @@ Available under MIT license.
 
 
 Blog posts:
-https://thibaudatwork.wordpress.com/2014/07/10/open-source-address-validation-of-nordic-addresses-for-infor-m3/
-https://thibaudatwork.wordpress.com/2014/03/07/open-source-release-of-address-validation-for-m3/
-https://thibaudatwork.wordpress.com/2013/12/08/open-source-project-address-validation-for-m3/
+http://thibaudatwork.wordpress.com/?s=address+validation
 
