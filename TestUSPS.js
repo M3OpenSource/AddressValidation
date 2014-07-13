@@ -33,6 +33,7 @@ package MForms.JScript {
 				} else {
 					debug.WriteLine(
 					address.Element("FirmName") + ", " +
+					address.Element("Address1") + ", " +
 					address.Element("Address2") + ", " +
 					address.Element("City") + ", " +
 					address.Element("State") + ", " +
